@@ -1,0 +1,25 @@
+# Controlled/local input data
+data/*
+!data/README.md
+!data/data_manifest.csv
+
+# Locally generated figures and resource tables
+resources/
+outputs/
+reference_docx_media/
+reference_artifacts/
+
+# Jupyter transient files
+.ipynb_checkpoints/
+*.execution_check.ipynb
+
+# R/Jupyter local state
+.Rhistory
+.RData
+.Rproj.user/
+*.nb.html
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/

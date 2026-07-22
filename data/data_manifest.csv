@@ -1,0 +1,8 @@
+local_filename,original_filename,format,role,required_for
+seurat_filtered.rds,batch_6_merge_seurat_obj_filted_02.2.rds,RDS,Primary filtered Seurat object,Expression-dependent Figure 2 and Figure 3 panels
+seurat_full.rds,batch_6_merge_seurat_obj.rds,RDS,Alternative full Seurat object,Exploratory/provenance workflows
+metadata_final.rds,batch_6_merge_meta_filted_02.2.rds,RDS,Final cell metadata and clinical fields,Cell-frequency survival and correlation panels
+metadata_intermediate.rds,tmp_seuart_batch6_meta.RDS,RDS,Intermediate metadata snapshot,State restoration/provenance
+tcr_annotation.rds,merged_tcr_annotation.RDS,RDS,TCR clonotype annotation,Figure 3f STARTRAC
+clinical_20260330.xlsx,IDOV溶瘤病毒外周血标本-zhc-20260330.xlsx,XLSX,Clinical source table,Clinical endpoint provenance
+clinical_20260420.xlsx,IDOV溶瘤病毒外周血标本-zhc-20260420-更新(1).xlsx,XLSX,Updated clinical source table,Clinical endpoint provenance

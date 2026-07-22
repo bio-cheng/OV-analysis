@@ -1,0 +1,21 @@
+function_file,source_notebook,source_cell,first_line
+01_palettes.R,batch6.ipynb,403,# 定义优化后的高对比度颜色向量 (结合了新版谱系色调逻辑)
+02_cell_frequency.R,batch6.ipynb,405,# ---------------- 统一数据准备函数 ----------------
+03_clinical_timeline.R,batch6.ipynb,798,library(tidyverse)
+04_program_definitions.R,batch6.ipynb,958,immune_programs_targeted <- list(
+05_program_scoring.R,batch6.ipynb,959,calculate_targeted_sample_diffs <- function(
+05_program_scoring.R,batch6.ipynb,961,plot_program_volcano <- function(
+05_program_scoring.R,batch6.ipynb,968,calculate_targeted_patient_scores_all_samples <- function(
+05_program_scoring.R,batch6.ipynb,971,plot_program_boxplot_from_score_res <- function(
+05_program_scoring.R,batch6.ipynb,983,calculate_targeted_patient_scores <- function(
+05_program_scoring.R,batch6.ipynb,991,plot_patient_program_heatmap <- function(
+06_survival.R,batch6.ipynb,938,plot_stage_cell_survival <- function(
+06_survival.R,batch6.ipynb,1020,plot_geneset_pseudobulk_survival_v3 <- function(
+07_tcr_startrac.R,batch6.ipynb,669,library(dplyr)
+08_correlations.R,batch6.ipynb,408,# 确保加载所有必要的 R 包
+08_correlations.R,batch6.ipynb,420,library(Seurat)
+08_correlations.R,batch6.ipynb,830,PlotTwoCellTypeProportionCorrelation <- function(
+09_expression.R,batch6.ipynb,281,library(Seurat)
+10_liver_metastasis.R,batch6.ipynb,883,"plot_clusters_group <- function(meta_data, group_var = ""new_group"", color_var = ""therapy_effect_adj"", "
+11_delta_ratio_survival.R,batch6.ipynb,188,library(dplyr)
+11_delta_ratio_survival.R,batch6.ipynb,190,library(dplyr)

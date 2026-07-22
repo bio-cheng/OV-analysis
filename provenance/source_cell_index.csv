@@ -1,0 +1,202 @@
+section,cell_index,cell_type,first_line
+00_data_loading_and_metadata.R,93,code,"seurat_merge <- readRDS(""batch_6_merge_seurat_obj_filted_02.2.rds"")"
+00_data_loading_and_metadata.R,94,code,"meta <- readRDS(""batch_6_merge_meta_filted_02.2.rds"")"
+00_data_loading_and_metadata.R,95,code,length(unique(meta$orig.ident))
+00_data_loading_and_metadata.R,96,code,"saveRDS(seurat_merge@meta.data, ""batch_6_merge_meta_filted_02.2.rds"")"
+00_data_loading_and_metadata.R,97,code,"saveRDS(seurat_merge@meta.data, ""tmp_seuart_batch6_meta.RDS"")"
+00_data_loading_and_metadata.R,98,code,1
+00_data_loading_and_metadata.R,99,code,<empty>
+00_data_loading_and_metadata.R,100,code,"saveRDS(seurat_merge, ""batch_6_merge_seurat_obj.rds"")"
+00_data_loading_and_metadata.R,101,code,"seurat_merge <- readRDS(""batch_6_merge_seurat_obj.rds"")"
+00_data_loading_and_metadata.R,102,code,table(seurat_merge$cell_type3)
+00_data_loading_and_metadata.R,103,code,<empty>
+00_data_loading_and_metadata.R,104,code,"meta <- readRDS(""tmp_seuart_batch6_meta.RDS"")"
+00_data_loading_and_metadata.R,105,code,seurat_merge@meta.data <- meta
+00_data_loading_and_metadata.R,202,code,"tb <- read_xlsx(""IDOV溶瘤病毒外周血标本-zhc-20260420-更新(1).xlsx"", skip = 1)"
+00_data_loading_and_metadata.R,203,code,"tb2 <- read_xlsx(""IDOV溶瘤病毒外周血标本-zhc.xlsx"")"
+00_data_loading_and_metadata.R,204,code,"tb2$patient_id <- gsub(""-01$"", """", tb2$`样本编号1`)"
+00_data_loading_and_metadata.R,205,code,"p_delta$response <- tb2$`response`[match(p_delta$patient_id, tb$patient_id)]"
+00_data_loading_and_metadata.R,206,code,p_delta
+00_data_loading_and_metadata.R,207,code,"seurat_merge$os_time <- tb$`OS(m)`[match(seurat_merge$patient_id, tb$patient_id)]"
+00_data_loading_and_metadata.R,208,code,"seurat_merge$is_death_e <- ifelse(seurat_merge$is_death == ""是"", ""Yes"", ""No"")"
+00_data_loading_and_metadata.R,209,code,"seurat_merge$os_status  <- ifelse(seurat_merge$is_death_e == ""Yes"", 1, 0)"
+00_data_loading_and_metadata.R,210,code,"meta$os_time <- tb$`OS(m)`[match(meta$patient_id, tb$patient_id)]"
+00_data_loading_and_metadata.R,211,code,"meta$os_statu <- ifelse(meta$is_death == ""是"", 1, 0)"
+00_data_loading_and_metadata.R,212,code,<empty>
+00_data_loading_and_metadata.R,213,code,table(seurat_merge$is_death_e)
+00_data_loading_and_metadata.R,214,code,<empty>
+00_data_loading_and_metadata.R,215,code,"tb$patient_id <- gsub(""-01$"", """", tb$`样本编号1`)"
+00_data_loading_and_metadata.R,216,code,"p_delta$os_time <- tb$`OS(m)`[match(p_delta$patient_id, tb$patient_id)]"
+00_data_loading_and_metadata.R,217,code,"p_delta$pfs_time <- tb$`PFS(m)`[match(p_delta$patient_id, tb$patient_id)]"
+00_data_loading_and_metadata.R,218,code,"p_delta$is_death_e <- ifelse(p_delta$is_death == ""是"", ""Yes"", ""No"")"
+00_data_loading_and_metadata.R,219,code,unique(meta$)
+00_data_loading_and_metadata.R,220,code,<empty>
+00_data_loading_and_metadata.R,221,code,head(meta)
+00_data_loading_and_metadata.R,222,code,<empty>
+00_data_loading_and_metadata.R,223,code,<empty>
+00_data_loading_and_metadata.R,224,code,"p_delta$lm <- meta$lm[match(p_delta$patient_id, meta$patient_id)]"
+00_data_loading_and_metadata.R,225,code,"p_delta$response <- meta$response[match(p_delta$patient_id, meta$patient_id)]"
+00_data_loading_and_metadata.R,428,code,"lm_patient <- c(""002"", ""003"", ""004"", ""007"", ""013"", ""017"", ""026"", ""027"", ""033"", ""040"")"
+00_data_loading_and_metadata.R,429,code,"lm_patient <- paste0(""BZ"", lm_patient)"
+00_data_loading_and_metadata.R,430,code,"seurat_merge$lm <- ifelse(seurat_merge$patient_id %in% lm_patient, ""LM"", ""noLM"")"
+00_data_loading_and_metadata.R,431,code,"seurat_merge$lm_group <- paste0(seurat_merge$lm, ""_"", seurat_merge$sample_type_rn)"
+00_data_loading_and_metadata.R,432,code,unique(seurat_merge$lm_group)
+00_data_loading_and_metadata.R,433,code,<empty>
+00_data_loading_and_metadata.R,434,code,<empty>
+00_data_loading_and_metadata.R,435,code,<empty>
+00_data_loading_and_metadata.R,436,code,"seurat_merge$sample_type_rn[seurat_merge$sample_type2 == ""02.2""] <- ""beforeICI"""
+00_data_loading_and_metadata.R,437,code,"table(seurat_merge$sample_type_rn, seurat_merge$sample_type2)"
+00_data_loading_and_metadata.R,438,code,seurat_merge
+00_data_loading_and_metadata.R,439,code,min(seurat_merge$nFeature_RNA)
+00_data_loading_and_metadata.R,440,code,"pkgs <- c(""Seurat"", ""harmony"", ""DoubletFinder"")"
+00_data_loading_and_metadata.R,441,code,<empty>
+00_data_loading_and_metadata.R,442,code,"seurat_merge$group_rn <- paste0(seurat_merge$pfs_group, ""_"", seurat_merge$sample_type_rn)"
+00_data_loading_and_metadata.R,443,code,"seurat_merge$pfs_group <- ifelse(seurat_merge$pfs_time < 6, ""PFS<6"", ""PFS>6"")"
+00_data_loading_and_metadata.R,630,code,"tcr_seq <- readRDS(""merged_tcr_annotation.RDS"")"
+00_data_loading_and_metadata.R,631,code,"seurat_merge$cell_type_major <- unlist(lapply(strsplit(seurat_merge$cell_type3, ""_""), ""["", 1))"
+00_data_loading_and_metadata.R,632,code,"cd8_obj <- seurat_merge[,seurat_merge$cell_type_major == ""CD8""]"
+00_data_loading_and_metadata.R,633,code,unique(cd8_obj$cell_type3)
+00_data_loading_and_metadata.R,634,code,"cd8_obj <- seurat_merge[,seurat_merge$cell_type_major == ""CD4""]"
+00_data_loading_and_metadata.R,635,code,rm(seurat_merge)
+00_data_loading_and_metadata.R,636,code,gc()
+00_data_loading_and_metadata.R,637,code,tcr_seq
+00_data_loading_and_metadata.R,638,code,<empty>
+00_data_loading_and_metadata.R,639,code,"cd8_obj$tcr_id <- tcr_seq$combine_seq[match(colnames(cd8_obj), tcr_seq$barcode_id)]"
+00_data_loading_and_metadata.R,640,code,<empty>
+00_data_loading_and_metadata.R,641,code,"cd8_obj$cell_type3[cd8_obj$cell_type3 == ""CD4_Activated""] <- ""CD4_LAG3"""
+00_data_loading_and_metadata.R,642,code,<empty>
+00_data_loading_and_metadata.R,643,code,"cd8_obj@meta.data$expand <- ifelse(cd8_obj$n_clonal_s > 1, ""Exp"", ""NoExp"")"
+00_data_loading_and_metadata.R,925,code,"survival <- read_xlsx(""IDOV溶瘤病毒外周血标本-zhc-20260330.xlsx"")"
+00_data_loading_and_metadata.R,926,code,unique(seurat_merge$patient_id)
+00_data_loading_and_metadata.R,927,code,seurat_merge$pfs_time <-
+00_data_loading_and_metadata.R,928,code,"survival$patient_id <- gsub(""-01$"", """", survival$`样本编号1`)"
+00_data_loading_and_metadata.R,929,code,"seurat_merge$pfs_time <- survival$`PFS(m)`[match(seurat_merge$patient_id, survival$patient_id)]"
+00_data_loading_and_metadata.R,930,code,seurat_merge$pfs_statu <- 1
+00_data_loading_and_metadata.R,1003,code,"pd <- c(""BZ005"", ""BZ017"", ""BZ021"")"
+00_data_loading_and_metadata.R,1004,code,table(seurat_merge$is_death )
+00_data_loading_and_metadata.R,1005,code,"seurat_merge$pfs_status <- ifelse(seurat_merge$patient_id %in% pd | seurat_merge$is_death == ""是"", 1, 0)"
+00_data_loading_and_metadata.R,1006,code,unique(seurat_merge$patient_id )
+00_data_loading_and_metadata.R,1007,code,"seurat_merge$pfs_status[seurat_merge$patient_id == ""BZ024""] <- 1"
+00_data_loading_and_metadata.R,1008,code,table(seurat_merge$pfs_status)
+00_data_loading_and_metadata.R,1009,code,seurat_merge$pfs_status[is.na(seurat_merge$pfs_status)] <- 0
+01_figure2_cells.R,400,code,# ---------------- 统一数据准备函数 ----------------
+01_figure2_cells.R,480,code,"diff_results_bl <- calculate_cluster_diff(seurat_merge,"
+01_figure2_cells.R,482,code,# 加载必要包
+01_figure2_cells.R,484,code,"write.csv(df, ""plot_v4/scatter_cell_type_3_PFS>6_D0_vs_PFS<6_D0.csv"")"
+01_figure2_cells.R,787,code,"get_prop_matrix <- function(seurat_obj, sample_col = ""orig.ident"","
+01_figure2_cells.R,788,code,"get_prop_matrix <- function(seurat_obj, sample_col = ""orig.ident"","
+01_figure2_cells.R,789,code,"plot_prop_heatmap <- function(prop_matrix, seurat_obj = NULL,"
+01_figure2_cells.R,790,code,"mat <- get_prop_matrix(seurat_merge, sample_col = ""orig.ident"", celltype_col = ""cell_type3"")"
+01_figure2_cells.R,791,code,"options(repr.plot.width = 15, repr.plot.height = 10)"
+01_figure2_cells.R,792,code,<empty>
+01_figure2_cells.R,793,code,library(tidyverse)
+01_figure2_cells.R,794,code,seurat_merge$sample_type <- seurat_merge$sample_type_rn
+01_figure2_cells.R,795,code,unique(seurat_merge$sample_type_rn)
+01_figure2_cells.R,796,code,"seurat_merge$response[seurat_merge$patient_id %in% c(""BZ005"", ""BZ039"")] <- NA"
+01_figure2_cells.R,797,code,"seurat_merge$pfs_6m <- ifelse(seurat_merge$pfs_time > 6, ""FPS>=6 month"", ""FPS<6 month"")"
+01_figure2_cells.R,798,code,p_cns <- plot_cns_clinical_matrix(seurat_merge)
+01_figure2_cells.R,799,code,"ggsave(""clinical_cohort_patient_annotation.pdf"", width = 12, height = 3)"
+01_figure2_cells.R,933,code,plot_stage_cell_survival <- function(
+01_figure2_cells.R,935,code,"# 假设你想分析 ""D0"" 阶段，""CD8+ T"" 细胞的比例对预后的影响"
+01_figure2_cells.R,936,code,"write.csv(res$data, ""plot_v4/fig2g_2.csv"", row.names = F)"
+01_figure2_cells.R,947,code,"# 假设你想分析 ""D0"" 阶段，""CD8+ T"" 细胞的比例对预后的影响"
+01_figure2_cells.R,953,code,immune_programs_targeted <- list(
+01_figure2_cells.R,963,code,calculate_targeted_patient_scores_all_samples <- function(
+01_figure2_cells.R,965,code,score_res_all <- calculate_targeted_patient_scores_all_samples(
+01_figure2_cells.R,966,code,plot_program_boxplot_from_score_res <- function(
+01_figure2_cells.R,978,code,calculate_targeted_patient_scores <- function(
+01_figure2_cells.R,980,code,score_res <- calculate_targeted_patient_scores(
+01_figure2_cells.R,986,code,plot_patient_program_heatmap <- function(
+01_figure2_cells.R,987,code,ht_res <- plot_patient_program_heatmap(
+01_figure2_cells.R,1014,code,plot_geneset_pseudobulk_survival_v3 <- function(
+01_figure2_cells.R,1017,code,res_add <- plot_geneset_pseudobulk_survival_v3(
+01_figure2_cells.R,1019,code,"options(repr.plot.width = 6, repr.plot.height = 7)"
+01_figure2_cells.R,1020,code,"pdf(""plot_v4/MHCII_maturation in DC_cDC2 at D0.pdf"", width = 6, height = 7)"
+01_figure2_cells.R,1021,code,"write.csv(res_add$data, ""plot_v4/fig2g_3.csv"")"
+01_figure2_cells.R,1022,code,"ggsave(""plot_v4/Checkpoint exhaustion in CD4_LAG3 at D0_PFS.pdf"", width = 6, height = 7)"
+02_figure3_cells.R,180,markdown,## plot_delta_pfs_correlation
+02_figure3_cells.R,181,code,library(dplyr)
+02_figure3_cells.R,182,code,"options(repr.plot.width = 6, repr.plot.height =6)"
+02_figure3_cells.R,183,code,library(dplyr)
+02_figure3_cells.R,184,code,"options(repr.plot.width = 6, repr.plot.height =6)"
+02_figure3_cells.R,185,code,library(dplyr)
+02_figure3_cells.R,186,code,"options(repr.plot.width = 6, repr.plot.height =6)"
+02_figure3_cells.R,400,code,# ---------------- 统一数据准备函数 ----------------
+02_figure3_cells.R,403,code,# 确保加载所有必要的 R 包
+02_figure3_cells.R,404,code,"options(repr.plot.width = 6, repr.plot.height =6)"
+02_figure3_cells.R,415,code,library(Seurat)
+02_figure3_cells.R,416,code,# 1. 定义从图片中提取的最新特征基因集
+02_figure3_cells.R,417,code,<empty>
+02_figure3_cells.R,418,code,unique(seurat_merge$cell_type3)
+02_figure3_cells.R,419,code,immune_programs_targeted$CD8_all__cytotoxicity$genes
+02_figure3_cells.R,420,code,immune_programs_targeted$CD8_all__cytotoxicity$genes
+02_figure3_cells.R,421,code,# 定义你的基因集
+02_figure3_cells.R,422,code,"options(repr.plot.width = 6.5, repr.plot.height = 5)"
+02_figure3_cells.R,423,code,"ggsave(""plot_v4/global_correlation in D7_CD4_LAG3_with CD8 Cytotoxicity.pdf"", width = 6.5, height = 5)"
+02_figure3_cells.R,453,code,library(Seurat)
+02_figure3_cells.R,454,code,"ggsave(""plot_v3/Immune Cell Composition Over Time.pdf"", width = 5, height = 4)"
+02_figure3_cells.R,587,markdown,# dotplot for single gene
+02_figure3_cells.R,588,code,cd4_suppressive_markers <- unique(c(
+02_figure3_cells.R,589,code,<empty>
+02_figure3_cells.R,590,code,<empty>
+02_figure3_cells.R,591,code,library(Seurat)
+02_figure3_cells.R,592,code,<empty>
+02_figure3_cells.R,593,code,# 提取 D7 显著基因 (黑圈)
+02_figure3_cells.R,594,code,# 设置表达量颜色映射
+02_figure3_cells.R,595,code,"ggsave(""plot_v4/Fig3d.pdf"",width = 12, height = 5)"
+02_figure3_cells.R,664,code,library(dplyr)
+02_figure3_cells.R,677,code,# 执行计算
+02_figure3_cells.R,679,code,meta_info <- tcr_meta %>%
+02_figure3_cells.R,680,code,"write.csv(startrac_results, ""plot_v3/boxplot_CD4 STARTRAC Expansion.csv"")"
+02_figure3_cells.R,693,code,meta_info <- tcr_meta %>%
+02_figure3_cells.R,694,code,# 执行计算
+02_figure3_cells.R,699,code,meta_info <- tcr_meta %>%
+02_figure3_cells.R,700,code,"options(repr.plot.width = 8, repr.plot.height = 8)"
+02_figure3_cells.R,701,code,<empty>
+02_figure3_cells.R,702,code,"options(repr.plot.width = 5.8, repr.plot.height =4.8)"
+02_figure3_cells.R,703,code,<empty>
+02_figure3_cells.R,704,code,ggsave()
+02_figure3_cells.R,705,code,"write.csv(startrac_results, ""plot_v4/Fig3f.csv"")"
+02_figure3_cells.R,706,code,require(ggsci)
+02_figure3_cells.R,707,code,meta_info <- tcr_meta %>%
+02_figure3_cells.R,708,code,"write.csv(startrac_results, ""plot_v4/FigS3e.csv"")"
+02_figure3_cells.R,820,code,"ggsave(""plot_v4/IFNG_Dynamics_postICI vs D7.pdf"", width = 7, height=5.5)"
+02_figure3_cells.R,822,code,PlotTargetCellCorrelationHeatmap <- function(
+02_figure3_cells.R,823,code,res <- PlotTargetCellCorrelationHeatmap(
+02_figure3_cells.R,825,code,PlotTwoCellTypeProportionCorrelation <- function(
+02_figure3_cells.R,826,code,res <- PlotTwoCellTypeProportionCorrelation(
+02_figure3_cells.R,827,code,"ggsave(""plot_v4/D7 correlation CD4_LAG3 vs CD8_NKT.pdf"", width = 6.5, height = 5.5)"
+02_figure3_cells.R,839,code,#' 计算 CD4 T 细胞功能评分
+02_figure3_cells.R,843,code,cd8_obj <- score_cd4_subsets(cd8_obj)
+02_figure3_cells.R,844,code,library(pheatmap)
+02_figure3_cells.R,845,code,"options(repr.plot.width = 6, repr.plot.height = 5, warnings = F)"
+02_figure3_cells.R,848,code,#' 计算 CD8 T 细胞功能评分
+02_figure3_cells.R,849,code,cd8_obj <- score_cd8_subsets(cd8_obj)
+02_figure3_cells.R,850,code,library(pheatmap)
+02_figure3_cells.R,851,code,<empty>
+02_figure3_cells.R,852,code,"ggsave(""CD8_functional characteristics of CD8 subsets.pdf"", width = 5.5, height = 5)"
+02_figure3_cells.R,889,code,"plot_clusters_group <- function(meta_data,"
+02_figure3_cells.R,893,code,"options(repr.plot.width = 7.2, repr.plot.height = 5.5, warnings = F)"
+02_figure3_cells.R,894,code,"ggsave(""plot_v4/Fig3g.pdf"", width = 7.2, height = 5.5)"
+02_figure3_cells.R,933,code,plot_stage_cell_survival <- function(
+02_figure3_cells.R,935,code,"# 假设你想分析 ""D0"" 阶段，""CD8+ T"" 细胞的比例对预后的影响"
+02_figure3_cells.R,937,code,"options(repr.plot.width = 6, repr.plot.height = 7)"
+02_figure3_cells.R,938,code,"write.csv(res$data, ""plot_v4/figS3m_2.csv"")"
+02_figure3_cells.R,940,code,"pdf(""plot_v4/Neu_IL1R1_D7_PFS.pdf"", width = 6, height = 7)"
+02_figure3_cells.R,941,code,"ggsave(""plot_v4/CD8_D0_PFS.pdf"", width = 6, height = 7)"
+02_figure3_cells.R,944,code,plot_stage_cell_survival <- function(
+02_figure3_cells.R,953,code,immune_programs_targeted <- list(
+02_figure3_cells.R,954,code,calculate_targeted_sample_diffs <- function(
+02_figure3_cells.R,955,code,diff_program <- calculate_targeted_sample_diffs (
+02_figure3_cells.R,956,code,plot_program_volcano <- function(
+02_figure3_cells.R,957,code,# 2. 设置画布尺寸（完美匹配你的 options 设定）
+02_figure3_cells.R,961,code,"ggsave(""plot_v4/immune Program changes D7 vs D0.pdf"", width = 6, height = 6)"
+02_figure3_cells.R,963,code,calculate_targeted_patient_scores_all_samples <- function(
+02_figure3_cells.R,965,code,score_res_all <- calculate_targeted_patient_scores_all_samples(
+02_figure3_cells.R,966,code,plot_program_boxplot_from_score_res <- function(
+02_figure3_cells.R,976,code,"options(repr.plot.width = 12.5, repr.plot.height = 5.8)"
+02_figure3_cells.R,977,code,"ggsave(""plot_v4/Fig3b.pdf"", width = 12.5, height = 5.8)"
+02_figure3_cells.R,978,code,calculate_targeted_patient_scores <- function(
+02_figure3_cells.R,980,code,score_res <- calculate_targeted_patient_scores(
+02_figure3_cells.R,982,code,calculate_targeted_patient_delta_scores <- function(
+02_figure3_cells.R,983,code,delta_res <- calculate_targeted_patient_delta_scores(
